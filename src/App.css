@@ -28,6 +28,154 @@
   color: #61dafb;
 }
 
+table {
+  margin-left: 15%;
+  margin-right: 15%;
+  width: 70%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: center;
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+
+/* CSS */
+.button-3 {
+  appearance: none;
+  background-color: #009879;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.button-3:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.button-3:hover {
+  background-color: #009879;
+}
+
+.button-3:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.button-3:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.button-3:active {
+  background-color: #009879;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+input, select {
+  width: 250px;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 6px;
+}
+
+.button-management {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+}
+
+.update-page {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: top;
+}
+
+.status-icon {
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 3px 8px;
+  color: white;
+  font-weight: bold;
+}
+
+.red {
+  background-color: #FF3838;
+}
+
+.orange {
+  background-color: #FFB302;
+}
+
+.yellow {
+  background-color: #FCE83A;
+}
+
+.green {
+  background-color: #56F000;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
