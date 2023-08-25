@@ -54,7 +54,7 @@ const UpdateItem: React.FC<UpdateItemProps> = ({bags}) => {
       status: item.status,
       bag: item.bag,
     };
-    console.log(isNewBag, isRemovedFromBag);
+
     if (isRemovedFromBag) {
       newItem.status = ItemStatus.NOT_PACKED;
       newItem.bag = 0;
@@ -70,7 +70,6 @@ const UpdateItem: React.FC<UpdateItemProps> = ({bags}) => {
       newItem.bag = selectedBagNumber;
       // add item to bag.items
       const newBag = bags.find((bag) => bag.id === selectedBagNumber);
-      console.log(newBag);
       if (newBag) {
         if (newBag.items == undefined) {
           newBag.items = [];
