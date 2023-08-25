@@ -13,13 +13,11 @@ const BagStatus: React.FC<BagStatusProps> = ({ bags, deleteBag }) => {
   const getBagItemsByNumber = async (bagId: number) => {
     try {
       const response = await axios.get(`http://localhost:8800/items/${bagId}`);
-      console.log(response.data);
       const bagItems = response.data.map((item: any) => item.name);
       return bagItems.join(", ");
     }
     catch (err) {
       console.log(err);
-      return "";
     }
   }
 
