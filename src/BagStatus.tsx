@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bag } from './types';
 import axios from 'axios';
 
@@ -8,16 +8,30 @@ interface BagStatusProps {
 }
 
 const BagStatus: React.FC<BagStatusProps> = ({ bags, deleteBag }) => {
+  const [bagItemsMap, setBagItemsMap] = useState<{ [key: number]: string }>({});
 
-  const getBagItemsByNumber = (bags: Bag[], bagId: number) => {
-    const bag = bags.find((bag) => bag.id === bagId);
-    return bag ? bag.items : [];
+  const getBagItemsByNumber = async (bagId: number) => {
+    try {
+      const response = await axios.get(`http://localhost:8800/items/${bagId}`);
+      const bagItems = response.data.map((item: any) => item.name);
+      return bagItems.join(", ");
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 
-  const displayBagItems = (bags: Bag[], bagId: number) => {
-    const bagItems = getBagItemsByNumber(bags, bagId);
-    return (bagItems) ? bagItems.sort().join(', ') : '';
-  }
+  useEffect(() => {
+    const fetchBagItems = async () => {
+      const itemsMap: { [key: number]: string } = {};
+      for (const bag of bags) {
+        const items = await getBagItemsByNumber(bag.id as number);
+        itemsMap[bag.id as number] = items;
+      }
+      setBagItemsMap(itemsMap);
+    };
+    fetchBagItems();
+  }, [bags]);
 
   return (
     <div>
@@ -35,7 +49,7 @@ const BagStatus: React.FC<BagStatusProps> = ({ bags, deleteBag }) => {
           {bags.map((bag, index) => (
             <tr key={index}>
               <td>{bag.id}</td>
-              <td>{displayBagItems(bags, bag.id as number)}</td>
+              <td>{bagItemsMap[bag.id as number]}</td>
               <td>
                 <span className={`status-icon ${
                   bag.status.includes("Not Packed")

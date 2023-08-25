@@ -46,21 +46,37 @@ const UpdateItem: React.FC<UpdateItemProps> = ({bags}) => {
   const handleClick = async (e: any) => {
     e.preventDefault();
     const oldBagNumber = item.bag;
-    const isNewBag = (selectedBagNumber !== oldBagNumber);
     const isRemovedFromBag = (selectedBagNumber === 0 && oldBagNumber !== 0);
+    const isNewBag = (selectedBagNumber !== oldBagNumber && !isRemovedFromBag);
     const newItem = {
       name: item.name,
       quantity: item.quantity,
       status: item.status,
       bag: item.bag,
     };
+
     if (isRemovedFromBag) {
       newItem.status = ItemStatus.NOT_PACKED;
       newItem.bag = 0;
+      // remove item from bag.items
+      const oldBag = bags.find((bag) => bag.id === oldBagNumber);
+      if (oldBag && oldBag.items) {
+        const newItems = oldBag.items.filter((itemId) => itemId as unknown as number !== item.id);
+        await axios.put(`http://localhost:8800/bags/${oldBagNumber}`, { ...oldBag, items: newItems });
+      }
     }
-    if (isNewBag && !isRemovedFromBag) {
+    if (isNewBag) {
       newItem.status = ItemStatus.IN_BAG + " #" + selectedBagNumber;
       newItem.bag = selectedBagNumber;
+      // add item to bag.items
+      const newBag = bags.find((bag) => bag.id === selectedBagNumber);
+      if (newBag) {
+        if (newBag.items == undefined) {
+          newBag.items = [];
+        }
+        newBag.items.push(item.name);
+        await axios.put(`http://localhost:8800/bags/${selectedBagNumber}`, newBag);
+      }
     }
     try {
       await axios.put(`http://localhost:8800/items/${itemId}`, newItem);
