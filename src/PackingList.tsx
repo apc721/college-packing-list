@@ -42,7 +42,7 @@ const PackingList: React.FC<PackingListProps> = ({bags, setBags}) => {
     console.log("Bag click");
     e.preventDefault();
     try {
-      await axios.post(`http://localhost:8800/bags`, { items: null, status: "Not Packed" });
+      await axios.post(`http://localhost:8800/bags`, { items: [], status: "Not Packed" });
       window.location.reload()
     } catch (err) {
       console.log(err);

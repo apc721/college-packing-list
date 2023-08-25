@@ -28,6 +28,17 @@ app.get("/items", (req, res) => {
   });
 });
 
+app.get("/items/:id", (req, res) => {
+  const query = "SELECT name FROM items where bag = ?";
+  const values = [req.params.id];
+  db.query(query, values, (err, data) => {
+    if (err) {
+      return res.json({error: err});
+    }
+    return res.json(data);
+  });
+});
+
 app.post("/items", (req, res) => {
   console.log('test 123');
   const query = "INSERT INTO items (name, quantity, status, bag) VALUES (?, ?, ?, ?)";
