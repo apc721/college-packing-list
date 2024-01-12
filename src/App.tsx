@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import PackingList from './PackingList';
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from 'react-router-dom';
+import Update from './UpdateItem';
+import Add from './AddItem';
+import { Bag } from './types';
 
 function App() {
+  const [bags, setBags] = useState<Bag[]>([]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className="App-heading">College Packing List</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<PackingList bags={bags} setBags={setBags} />} />
+          <Route path="/add" element={<Add />} />
+          <Route path="/update/:id" element={<Update bags={bags} />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
